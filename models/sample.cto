@@ -103,6 +103,8 @@ transaction create_user {
   o String email
 }
 
+transaction create_example_data {}
+
 event ParkEvent {
   --> Car car
   --> ParkSpace parkspace

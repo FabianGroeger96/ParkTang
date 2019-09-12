@@ -31,12 +31,39 @@ rule EverybodyCanSubmitTransactions {
     action: ALLOW
 }
 
-rule OwnerHasFullAccessToTheirAssets {
-    description: "Allow all participants full access to their assets"
+rule OwnerHasFullAccessToTheirCar {
+    description: "Allow all users full access to their cars"
     participant(p): "org.example.basic.User"
     operation: ALL
     resource(r): "org.example.basic.Car"
     condition: (r.owner.getIdentifier() === p.getIdentifier())
+    action: ALLOW
+}
+
+rule OwnerHasFullAccessToTheirParkSpace {
+    description: "Allow all user full access to their park spaces"
+    participant(p): "org.example.basic.User"
+    operation: ALL
+    resource(r): "org.example.basic.ParkSpace"
+    condition: (r.owner.getIdentifier() === p.getIdentifier())
+    action: ALLOW
+}
+
+rule OwnerHasReadAccessToTheirBills {
+    description: "Allow all user read access to their bills"
+    participant(p): "org.example.basic.User"
+    operation: READ
+    resource(r): "org.example.basic.Bill"
+    condition: (r.owner.getIdentifier() === p.getIdentifier())
+    action: ALLOW
+}
+
+rule ParkSpaceOwnerHasReadAccessToTheirBills {
+    description: "Allow all park space owner read access to their bills of space"
+    participant(p): "org.example.basic.User"
+    operation: READ
+    resource(r): "org.example.basic.Bill"
+    condition: (r.parking.owner.getIdentifier() === p.getIdentifier())
     action: ALLOW
 }
 
