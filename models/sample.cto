@@ -87,6 +87,22 @@ transaction create_car {
   o String[] features
 }
 
+transaction create_parkspace {
+  --> User user
+  o String coordinates
+  o String adress
+  o Double price
+  o DateTime free_from
+  o DateTime free_to
+  o Boolean disabled
+}
+
+transaction create_user {
+  o String firstName
+  o String lastName
+  o String email
+}
+
 event ParkEvent {
   --> Car car
   --> ParkSpace parkspace
