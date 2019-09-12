@@ -80,6 +80,13 @@ transaction top_up_balance {
   o Double balance
 }
 
+transaction create_car {
+  --> User user
+  o String name
+  o String model
+  o String[] features
+}
+
 event ParkEvent {
   --> Car car
   --> ParkSpace parkspace
