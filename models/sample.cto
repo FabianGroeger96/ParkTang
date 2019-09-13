@@ -31,15 +31,15 @@ asset ParkSpace identified by parkId {
   --> ParkSpaceStatus status
   o String parkId
   o String coordinates
-  o String adress
+  o String address
   o Double price
   o DateTime entry optional
 }
 
 asset ParkSpaceStatus identified by parkStatusId {
   o String parkStatusId
-  o DateTime free_from
-  o DateTime free_to
+  o String free_from
+  o String free_to
   o Boolean disabled
 }
 
@@ -90,7 +90,7 @@ transaction create_car {
 transaction create_parkspace {
   --> User user
   o String coordinates
-  o String adress
+  o String address
   o Double price
   o DateTime free_from
   o DateTime free_to
