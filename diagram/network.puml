@@ -1,0 +1,127 @@
+@startuml
+
+' hide the spot
+hide circle
+
+' avoid problems with angled crows feet
+skinparam linetype ortho
+
+package "Assets" {
+    entity "Car" as car {
+        + String carId
+        --
+        + User owner
+        --
+        + String name
+        + String model
+        + String[] features
+        + String balance
+    }
+
+    entity "ParkSpace" as parkspace {
+        + String parkId
+        --
+        + User owner
+        + ParkSpaceStatus status
+        --
+        + String coordinates
+        + String address
+        + Double price
+        + DateTime entry
+    }
+
+    entity "Bill" as bill {
+        + String billId
+        --
+        + User owner
+        + ParkSpace parking
+        + BillStatus status
+        --
+        + Double price
+    }
+
+    entity "ParkSpaceStatus" as parkspacestatus {
+        + String parkStatusId
+        --
+        + String free_from
+        + String free_to
+        + Boolean disabled
+    }
+}
+
+package "Enums" {
+    entity "BillStatus" as billstatus {
+        + PAYED
+        + OPEN
+        + PENDING
+    }
+}
+
+package "Participant" {
+    entity "User" as user {
+        + String userId
+        --
+        + String firstName
+        + String lastName
+        + String email
+        + String balance
+    }
+}
+
+package "Transactions" {
+    entity "ParkingIn" as parkingin {
+        + Car car
+        + ParkSpace parkspace
+    }
+
+    entity "ParkingOut" as parkingout {
+        + Car car
+        + ParkSpace parkspace
+    }
+
+    entity "TopUpBalance" as topupbalance {
+        + User user
+        + Double balance
+    }
+
+    entity "CreateCar" as createcar {
+        + User user
+        + String coordinates
+        + String address
+        + Double price
+        + DateTime free_from
+        + DateTime free_to
+        + Boolean disabled
+    }
+
+    entity "CreateUser" as createuser {
+        + String firstName
+        + String lastName
+        + String email
+    }
+}
+
+package "Events" {
+    entity "ParkEvent" as parkevent {
+        + Car car
+        + ParkSpace parkspace
+        + Double price
+    }
+
+    entity "UnableToPayEvent" as unabletopayevent {
+        + User owner
+        + Bill bill
+    }
+}
+
+car }o--|{ user
+parkspace }o--|| user
+parkspace ||--|| parkspacestatus
+bill }o--|| user
+bill }o--|| parkspace
+bill ||--|| billstatus
+
+!define DATE %date[EEE, MMM d, ''yy 'at' HH:mm]%
+right footer DATE
+
+@enduml

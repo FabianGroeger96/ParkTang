@@ -1,0 +1,135 @@
+@startuml composer
+'** Auto generated content, any changes may be lost **'
+!define DATE %date[EEE, MMM d, ''yy 'at' HH:mm]%
+skinparam class {
+  Font {
+    Color Black
+    Style Plain
+    Size 16
+  }
+}
+skinparam title {
+  BackgroundColor LightYellow
+  BorderThickness 0.5
+  BorderRoundCorner 6
+  FontColor Black
+  FontSize 18
+}
+title
+Business Network Definition for 'sample.cto'
+end title
+
+package "Assets" {
+   
+}
+
+class org.example.basic.Car << (A,green) >> {
+   + User owner
+   + String carId
+   + String name
+   + String model
+   + String[] features
+   + String balance
+}
+org.example.basic.Car --|> org.hyperledger.composer.system.Asset
+class org.example.basic.ParkSpace << (A,green) >> {
+   + User owner
+   + ParkSpaceStatus status
+   + String parkId
+   + String coordinates
+   + String address
+   + Double price
+   + DateTime entry
+}
+org.example.basic.ParkSpace --|> org.hyperledger.composer.system.Asset
+class org.example.basic.ParkSpaceStatus << (A,green) >> {
+   + String parkStatusId
+   + String free_from
+   + String free_to
+   + Boolean disabled
+}
+org.example.basic.ParkSpaceStatus --|> org.hyperledger.composer.system.Asset
+class org.example.basic.Bill << (A,green) >> {
+   + User owner
+   + ParkSpace parking
+   + String billId
+   + Double price
+   + BillStatus status
+}
+org.example.basic.Bill --|> org.hyperledger.composer.system.Asset
+class org.example.basic.BillStatus << (E,grey) >> {
+   + PAYED
+   + OPEN
+   + PENDING
+}
+class org.example.basic.User << (P,lightblue) >> {
+   + String userId
+   + String firstName
+   + String lastName
+   + String email
+   + String balance
+}
+org.example.basic.User --|> org.hyperledger.composer.system.Participant
+class org.example.basic.parking_in << (T,yellow) >> {
+   + Car car
+   + ParkSpace parkspace
+}
+org.example.basic.parking_in --|> org.hyperledger.composer.system.Transaction
+class org.example.basic.parking_out << (T,yellow) >> {
+   + Car car
+   + ParkSpace parkspace
+}
+org.example.basic.parking_out --|> org.hyperledger.composer.system.Transaction
+class org.example.basic.top_up_balance << (T,yellow) >> {
+   + User user
+   + Double balance
+}
+org.example.basic.top_up_balance --|> org.hyperledger.composer.system.Transaction
+class org.example.basic.create_car << (T,yellow) >> {
+   + User user
+   + String name
+   + String model
+   + String[] features
+}
+org.example.basic.create_car --|> org.hyperledger.composer.system.Transaction
+class org.example.basic.create_parkspace << (T,yellow) >> {
+   + User user
+   + String coordinates
+   + String address
+   + Double price
+   + DateTime free_from
+   + DateTime free_to
+   + Boolean disabled
+}
+org.example.basic.create_parkspace --|> org.hyperledger.composer.system.Transaction
+class org.example.basic.create_user << (T,yellow) >> {
+   + String firstName
+   + String lastName
+   + String email
+}
+org.example.basic.create_user --|> org.hyperledger.composer.system.Transaction
+class org.example.basic.create_example_data_users << (T,yellow) >> {
+}
+org.example.basic.create_example_data_users --|> org.hyperledger.composer.system.Transaction
+class org.example.basic.create_example_data_cars << (T,yellow) >> {
+   + User owner_car_1
+   + User owner_car_2
+}
+org.example.basic.create_example_data_cars --|> org.hyperledger.composer.system.Transaction
+class org.example.basic.create_example_data_parkspaces << (T,yellow) >> {
+   + User owner_parkspace
+}
+org.example.basic.create_example_data_parkspaces --|> org.hyperledger.composer.system.Transaction
+class org.example.basic.ParkEvent {
+   + Car car
+   + ParkSpace parkspace
+   + Double price
+}
+org.example.basic.ParkEvent --|> org.hyperledger.composer.system.Event
+class org.example.basic.UnableToPayEvent {
+   + User owner
+   + Bill bill
+}
+org.example.basic.UnableToPayEvent --|> org.hyperledger.composer.system.Event
+right footer DATE
+@enduml
